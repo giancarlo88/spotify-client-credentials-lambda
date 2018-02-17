@@ -1,5 +1,4 @@
 require('dotenv').config()
-const fetch = require('node-fetch')
 const request = require('superagent')
 
 module.exports.getToken = (event, context, callback) => {
@@ -20,15 +19,17 @@ module.exports.getToken = (event, context, callback) => {
       return (
         request
           .post('https://accounts.spotify.com/api/token')
-          // .type('form')
-          .set('Authorization', makeAuthHeader(config))
+          .type('form')
+          .set('Authorization', headers)
           .send(body)
-          .then((res, req) =>
-            resolve({
+          .then((res) => {
+            return resolve({
               access_token: res.body.access_token
             })
-          )
-          .catch((err) => reject(err))
+          })
+          .catch((err) => {
+            return reject(err)
+          })
       )
     })
 
