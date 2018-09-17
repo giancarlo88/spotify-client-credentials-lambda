@@ -37,20 +37,20 @@ module.exports.getToken = (event, context, callback) => {
     .then((res) => {
       const response = {
         statusCode: 200,
-        body: JSON.stringify({
+        body: {
           message: 'Got Spotify token.',
           input: res
-        })
+        }
       }
       return callback(null, response)
     })
     .catch((err) => {
       const response = {
         statusCode: 400,
-        body: JSON.stringify({
+        body: {
           message: 'Error obtaining token',
           input: err
-        })
+        }
       }
       return callback(response)
     })
